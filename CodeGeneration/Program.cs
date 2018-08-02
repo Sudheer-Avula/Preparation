@@ -14,6 +14,7 @@ namespace CodeGeneration
     {
         static void Main(string[] args)
         {
+
             //ArrayList arr = new ArrayList();
             //ArrayList arr1 = new ArrayList();
             //for (int i = 0; i < 10000000; i++)
@@ -86,8 +87,19 @@ namespace CodeGeneration
         }
 
 
+        public static void test(string s, string s1)
+        {
 
-       
+        }
+
+        public static void test(int s, int s1)
+        {
+
+        }
+
+
+
+
         abstract class Animal
         {
             public string DefaultMessage { get; set; }
