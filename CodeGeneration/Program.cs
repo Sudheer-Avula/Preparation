@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net;
+using System.Web;
 
 namespace CodeGeneration
 {
@@ -14,7 +16,44 @@ namespace CodeGeneration
     {
         static void Main(string[] args)
         {
+            DateCaliculator cal = new DateCaliculator();
+            cal.Test(1, 2, 2016, 15, 2, 2017);
+            // var process = new ProcessData();
+            // process.Add();
 
+
+
+            
+            //bool isLeap = false;
+            //int year = 2016;
+
+              
+            //if (year % 4 != 0)
+            //    isLeap = false;
+            //if (year % 100 == 0)
+            //    isLeap = year % 400 == 0;
+                
+            
+
+            Console.ReadLine();
+            return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //string sudheer = Guid.NewGuid().ToString();
             //ArrayList arr = new ArrayList();
             //ArrayList arr1 = new ArrayList();
             //for (int i = 0; i < 10000000; i++)

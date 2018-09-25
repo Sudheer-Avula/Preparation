@@ -29,7 +29,7 @@ namespace CodeGeneration
 
     public class Ball : Shape
     {
-        public  string GetName()
+        public string GetName()
         {
             return "ball";
         }
@@ -51,4 +51,44 @@ namespace CodeGeneration
         }
 
     }
+    /* Inherit both abstract and Interface, order should be first abstract and then interface */
+
+    public interface ICrud
+    {
+        void Add();
+        void Update();
+        void Delete();
+        void Select();
+    }
+
+    public abstract class CrudBase : ICrud
+    {
+        public void Add()
+        {
+            Console.WriteLine("Performing add operation...");
+            Console.ReadLine();
+        }
+
+        public void Update()
+        {
+            Console.WriteLine("Performing update operation...");
+            Console.ReadLine();
+        }
+        public void Delete()
+        {
+            Console.WriteLine("Performing delete operation...");
+            Console.ReadLine();
+        }
+        public void Select()
+        {
+            Console.WriteLine("Performing select operation...");
+            Console.ReadLine();
+        }
+    }
+
+    public class ProcessData : CrudBase, ICrud
+    {
+
+    }
+
 }
