@@ -17,23 +17,25 @@ namespace CodeGeneration
         static void Main(string[] args)
         {
             DateCaliculator cal = new DateCaliculator();
-            cal.Test(1, 2, 2016, 15, 2, 2017);
+            //cal.Test(1, 2, 2016, 15, 2, 2016);
+
+            Console.Write("Calculated day difference is {0:D}", cal.Test(1, 7, 2012, 15, 12, 2016));
             // var process = new ProcessData();
             // process.Add();
 
 
 
-            
+
             //bool isLeap = false;
             //int year = 2016;
 
-              
+
             //if (year % 4 != 0)
             //    isLeap = false;
             //if (year % 100 == 0)
             //    isLeap = year % 400 == 0;
-                
-            
+
+
 
             Console.ReadLine();
             return;

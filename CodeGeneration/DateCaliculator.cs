@@ -8,92 +8,52 @@ namespace CodeGeneration
 {
    public class DateCaliculator
    {
-       private static readonly int[] DaysPerMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //number of days for eatch month for 12 months
+       private static readonly int[] DaysPerMonth = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }; //number of days for eatch month for 12 months
 
-       public DateCaliculator()
+       public int CaliculateDays(int iFromday, int iFromMonth, int iFromYear, int iToday, int iToMonth, int iToyear)
        {
-
-       }
-
-       public void CaliculateDays(int iFromday, int iFromMonth, int iFromYear, int iToday, int iToMonth, int iToyear)
-        {
-            int iDifference;
-            var i = iFromday + 1;
-
-            if (iFromMonth == 2 && (iFromYear % 4 == 0 || iFromYear % 100 == 0) && iFromYear % 400 != 0)
-            {
-                iDifference = 29 - iFromday;// if leap year decrease 1 day to so that equal to 28
-            }
-            else
-            {
-                iDifference = DaysPerMonth[iFromMonth] - iFromday;
-            }
-            //same month and same year simplify
+            //Set February days based on year, if Leap year then 29 else get from static variable "DaysPerMonth" value of February i.e 28
+            var iDifference = (iFromMonth == 2 && LeapYearCheck(iFromYear))? 29 - iFromday: DaysPerMonth[iFromMonth] - iFromday;
+            
+            //if same year and month then just get date difference 
             if (iFromYear == iToyear && iFromMonth == iToMonth)
-            {
-                Console.Write("The Difference is {0:D}", Math.Abs(iFromday - iToday));
-                return;
-            }
-            if (i == 13)
-            {
-                i = 1;
-            }
-            CaliculateforDifferentYears(ref iFromYear, iToday, iToMonth, iToyear, ref iDifference, ref i);
-        }
+                return Math.Abs(iFromday - iToday);
+            
+           var i = iFromMonth + 1;
 
-        private static int CaliculateforDifferentYears(ref int iFromYear, int iToday, int iToMonth, int iToyear, ref int iDifference, ref int i)
-        {
-            int iResult = 0;
             while (true)
             {
                 while (i <= 12)
                 {
+                    
                     if (iFromYear == iToyear && i == iToMonth) //calculation over since both years same
                     {
-                        //and months too
-                        iDifference += iToday;
+                        iDifference += iToday;//inlcude given desination month days too
                         return iDifference;
-                        //Console.Write("The Difference is {0:D}", iDifference);
-                        //return;
                     }
-                    if (i == 2 && ((iFromYear % 4 == 0 || iFromYear % 100 == 0) && iFromYear % 400 != 0))
-                    {
-                        //leap year so count 29 days
-                        iDifference += 29;
-                    }
-                    else
-                    {
-                        iDifference += DaysPerMonth[i];
-                    }
+
+                    iDifference += (i == 2 && LeapYearCheck(iFromYear))?  29: DaysPerMonth[i];//Assign days in loop
                     i++;
                 }
-                i = 1;
-                iFromYear++;
+                i = 1;// set to 1 to loop month days for eatch year
+                iFromYear++;// increment year till it reach desination year
             }
         }
 
+       private bool LeapYearCheck(int iYear)
+       {
+           return (iYear % 4 == 0 || iYear % 100 == 0) && iYear % 400 != 0;// find input year is leapYear
+       }
         public int Test(int iFromday, int iFromMonth, int iFromYear, int iToday, int iToMonth, int iToyear)
         {
-            if (iFromYear > iToyear)
-            {
-                CaliculateDays(iToday, iToMonth, iToyear, iFromday, iFromMonth, iFromYear);
-            }
-            else if (iToyear > iFromYear)
-            {
-                CaliculateDays(iFromday, iFromMonth, iFromYear, iToday, iToMonth, iToyear);
-            }
-            else
-            {
-                if (iFromMonth > iToMonth)
-                {
-                    CaliculateDays(iToday, iToMonth, iToyear, iFromday, iFromMonth, iFromYear);
-                }
-                else
-                {
-                    CaliculateDays(iFromday, iFromMonth, iFromYear, iToday, iToMonth, iToyear);
-                }
-            }
-            return 0;
+            int iResult = 0;
+            //input Date order can be ascending or descending
+            if (iFromYear > iToyear || iFromMonth > iToMonth)
+                iResult= CaliculateDays(iToday, iToMonth, iToyear, iFromday, iFromMonth, iFromYear);
+            else 
+                iResult=CaliculateDays(iFromday, iFromMonth, iFromYear, iToday, iToMonth, iToyear);
+            
+            return iResult;
         }
 
 
